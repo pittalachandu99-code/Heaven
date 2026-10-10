@@ -1,0 +1,345 @@
+// Prisma Schema for HEAVEN Luxury Perfume E-Commerce Platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  fullName     String
+  phone        String?
+  role         String    @default("CUSTOMER") // "CUSTOMER", "ADMIN", "DELIVERY_PARTNER"
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  customerProfile CustomerProfile?
+  deliveryProfile DeliveryPartnerProfile?
+  orders          Order[]
+  carts           Cart[]
+  wishlists       Wishlist[]
+  savedAddresses  SavedAddress[]
+  auditLogs       AuditLog[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model CustomerProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  preferredNotes String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model DeliveryPartnerProfile {
+  id                  String               @id @default(cuid())
+  userId              String               @unique
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicleType         String?              @default("Luxury Courier Van")
+  vehicleNumber       String?              @default("DL-01-HV-2026")
+  isAvailable         Boolean              @default(true)
+  currentLatitude     Float?               @default(28.6139)
+  currentLongitude    Float?               @default(77.2090)
+  deliveriesCompleted Int                  @default(0)
+  rating              Float                @default(4.9)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  assignments         DeliveryAssignment[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  products    Product[]
+}
+
+model Product {
+  id                String              @id @default(cuid())
+  name              String
+  slug              String              @unique
+  sku               String?             @unique
+  subtitle          String?
+  description       String
+  fragranceFamily   String
+  topNotes          String
+  heartNotes        String
+  baseNotes         String
+  size              String              @default("100ml / 3.4 FL. OZ.")
+  price             Float
+  stockQuantity     Int                 @default(50)
+  lowStockThreshold Int                 @default(10)
+  isFeatured        Boolean             @default(false)
+  isNewArrival      Boolean             @default(false)
+  isBestSeller      Boolean             @default(false)
+  isPublished       Boolean             @default(true)
+  isArchived        Boolean             @default(false)
+  primaryImage      String
+  categoryId        String
+  category          Category            @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  images            ProductImage[]
+  cartItems         CartItem[]
+  orderItems        OrderItem[]
+  wishlistItems     WishlistItem[]
+  inventoryMovements InventoryMovement[]
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([fragranceFamily])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  altText   String?
+  sortOrder Int      @default(0)
+
+  @@index([productId])
+}
+
+model Cart {
+  id                 String     @id @default(cuid())
+  userId             String?
+  user               User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anonymousSessionId String?    @unique
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  items              CartItem[]
+
+  @@index([userId])
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, productId])
+}
+
+model SavedAddress {
+  id                   String   @id @default(cuid())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipientName        String
+  phone                String
+  addressLine1         String
+  addressLine2         String?
+  city                 String
+  state                String
+  postalCode           String
+  country              String   @default("India")
+  isDefault            Boolean  @default(false)
+  deliveryInstructions String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  orders               Order[]
+
+  @@index([userId])
+}
+
+model Order {
+  id                   String               @id @default(cuid())
+  orderNumber          String               @unique
+  userId               String
+  user                 User                 @relation(fields: [userId], references: [id], onDelete: Restrict)
+  addressId            String?
+  shippingAddress      SavedAddress?        @relation(fields: [addressId], references: [id], onDelete: SetNull)
+  
+  shippingRecipient    String
+  shippingPhone        String
+  shippingAddressLine1 String
+  shippingAddressLine2 String?
+  shippingCity         String
+  shippingState        String
+  shippingPostalCode   String
+  shippingInstructions String?
+
+  subtotal             Float
+  shippingFee          Float                @default(0)
+  discountAmount       Float                @default(0)
+  taxAmount            Float                @default(0)
+  totalAmount          Float
+  currency             String               @default("INR")
+
+  status               String               @default("PLACED")
+  paymentStatus        String               @default("PENDING")
+  paymentMethod        String               @default("UPI")
+  idempotencyKey       String?              @unique
+
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+
+  items                OrderItem[]
+  events               OrderStatusEvent[]
+  paymentSimulations   PaymentSimulation[]
+  deliveryAssignment   DeliveryAssignment?
+
+  @@index([orderNumber])
+  @@index([userId])
+  @@index([status])
+  @@index([idempotencyKey])
+}
+
+model OrderItem {
+  id           String   @id @default(cuid())
+  orderId      String
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId    String?
+  product      Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productName  String
+  productSlug  String
+  productSize  String
+  unitPrice    Float
+  quantity     Int
+  totalPrice   Float
+  productImage String?
+
+  @@index([orderId])
+}
+
+model PaymentSimulation {
+  id                   String   @id @default(cuid())
+  orderId              String
+  order                Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  paymentMethod        String   // "UPI", "CARD", "COD"
+  transactionReference String   @unique
+  amount               Float
+  currency             String   @default("INR")
+  status               String   // "SUCCESS", "FAILED", "PENDING"
+  gatewayResponse      String?
+  createdAt            DateTime @default(now())
+
+  @@index([orderId])
+  @@index([transactionReference])
+}
+
+model DeliveryAssignment {
+  id                String                 @id @default(cuid())
+  orderId           String                 @unique
+  order             Order                  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  deliveryPartnerId String
+  deliveryPartner   DeliveryPartnerProfile @relation(fields: [deliveryPartnerId], references: [id], onDelete: Restrict)
+  assignedAt        DateTime               @default(now())
+  status            String                 @default("ASSIGNED")
+  pickedUpAt        DateTime?
+  deliveredAt       DateTime?
+  demoEarnings      Float                  @default(180.0)
+  notes             String?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+
+  @@index([deliveryPartnerId])
+}
+
+model OrderStatusEvent {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  fromStatus  String?
+  toStatus    String
+  title       String
+  description String?
+  actorId     String?
+  actorRole   String?
+  createdAt   DateTime @default(now())
+
+  @@index([orderId])
+}
+
+model InventoryMovement {
+  id             String   @id @default(cuid())
+  productId      String
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  changeQuantity Int
+  balanceAfter   Int
+  reason         String
+  referenceId    String?
+  createdAt      DateTime @default(now())
+
+  @@index([productId])
+}
+
+model StoreSettings {
+  id                       String   @id @default("default")
+  storeName                String   @default("HEAVEN")
+  storeEmail               String   @default("concierge@heavenperfume.com")
+  storePhone               String   @default("+91 800-HEAVEN-0")
+  shippingFee              Float    @default(150.0)
+  freeShippingThreshold    Float    @default(5000.0)
+  lowStockThreshold        Int      @default(10)
+  enableDemoUpi            Boolean  @default(true)
+  enableDemoCard           Boolean  @default(true)
+  enableDemoCod            Boolean  @default(true)
+  partnerEarningPerDelivery Float   @default(180.0)
+  currencySymbol           String   @default("₹")
+  currencyCode             String   @default("INR")
+  updatedAt                DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String
+  entityType String
+  entityId   String?
+  details    String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+}
+
+model Wishlist {
+  id                 String         @id @default(cuid())
+  userId             String?        @unique
+  user               User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anonymousSessionId String?        @unique
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  items              WishlistItem[]
+
+  @@index([userId])
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  wishlistId String
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([wishlistId, productId])
+}

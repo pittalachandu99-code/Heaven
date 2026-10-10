@@ -1,0 +1,1084 @@
+/* ==========================================================================
+   HEAVEN HAUTE PARFUMERIE - 4K LUXURY DESIGN SYSTEM & STYLES
+   ========================================================================== */
+
+:root {
+  --color-bg-deep: #070605;
+  --color-bg-dark: #0d0b09;
+  --color-bg-surface: #14110e;
+  --color-bg-card: rgba(22, 19, 16, 0.7);
+  --color-gold-light: #fbeac4;
+  --color-gold-primary: #d4af37;
+  --color-gold-rich: #c59b27;
+  --color-gold-dark: #826019;
+  --color-amber-glow: rgba(212, 175, 55, 0.18);
+  --color-text-main: #f5efe6;
+  --color-text-muted: #a69b8d;
+  --color-border-gold: rgba(212, 175, 55, 0.28);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+
+  --font-serif-display: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-serif-body: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Reset & Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg-deep);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at 75% 20%, #1e170f 0%, #0c0a08 50%, #050403 100%);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dark);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-primary);
+}
+
+/* Header & Navigation */
+.luxury-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+  z-index: 100;
+  background: linear-gradient(180deg, rgba(7, 6, 5, 0.85) 0%, rgba(7, 6, 5, 0) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  transition: all 0.4s ease;
+}
+
+.brand-emblem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-emblem svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--color-gold-light);
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+}
+
+.brand-title {
+  font-family: var(--font-serif-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #fff7e6 0%, #d4af37 50%, #997017 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold-primary);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-gold-light);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-gold-light);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-icon:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--color-gold-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+}
+
+.btn-pill {
+  padding: 0.6rem 1.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 30px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.4s var(--ease-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #e8c76b 0%, #c49926 100%);
+  color: #120e06;
+  border: none;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #fae29c 0%, #dbac31 100%);
+  box-shadow: 0 6px 28px rgba(212, 175, 55, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-gold-light);
+  border: 1px solid var(--color-border-gold);
+}
+
+.btn-outline:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--color-gold-primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   4K INTRO SECTION
+   ========================================================================== */
+
+#intro-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 800px;
+  overflow: hidden;
+  background: #060504;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background Atmosphere Layers */
+.intro-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.backdrop-gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 65% 45%, #2a1e10 0%, #110d08 45%, #050403 90%);
+  opacity: 0.85;
+}
+
+.backdrop-bokeh {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(235, 195, 105, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(180, 130, 40, 0.06) 0%, transparent 50%);
+  filter: blur(40px);
+}
+
+/* Light rays from top right */
+.backdrop-light-ray {
+  position: absolute;
+  top: -20%;
+  right: 15%;
+  width: 600px;
+  height: 1200px;
+  background: linear-gradient(135deg, rgba(255, 230, 160, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
+  transform: rotate(-30deg);
+  pointer-events: none;
+  filter: blur(30px);
+}
+
+/* 4K Canvas */
+#intro-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Hand & Perfume Bottle Container */
+.hand-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 62vw;
+  max-width: 1300px;
+  height: 100vh;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+  transform: translateX(110%);
+  transition: transform 3.2s var(--ease-cinematic), filter 1.5s ease;
+  will-change: transform;
+}
+
+.hand-container.entering {
+  transform: translateX(0%);
+}
+
+.hand-container.pressing {
+  transform: translateX(0%) translateY(3px) scale(0.998);
+  transition: transform 0.12s ease;
+}
+
+.hand-container.floating {
+  transform: translateX(0%) translateY(-2px);
+  transition: transform 2.5s ease-in-out;
+}
+
+.hand-container.settle-back {
+  transform: translateX(5%) scale(0.96);
+  filter: brightness(0.85) blur(1px);
+  transition: transform 3.0s var(--ease-soft), filter 3.0s ease;
+}
+
+.hand-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  mask-image: radial-gradient(ellipse 90% 90% at 75% 50%, black 70%, transparent 100%),
+              linear-gradient(to right, transparent 0%, black 30%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 75% 50%, black 70%, transparent 100%),
+                      linear-gradient(to right, transparent 0%, black 30%);
+}
+
+.hand-frame {
+  position: absolute;
+  right: 0;
+  height: 90vh;
+  max-height: 950px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.15s ease;
+  filter: drop-shadow(-20px 20px 50px rgba(0, 0, 0, 0.8));
+}
+
+#hand-ready-img {
+  opacity: 1;
+}
+
+#hand-spray-img {
+  opacity: 0;
+}
+
+/* Chrome Nozzle Glint Sparkle */
+.nozzle-glint {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.8) 20%, transparent 70%);
+  filter: drop-shadow(0 0 12px #fff);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 12;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Vector Logo Overlay (Solidifies after droplets assemble) */
+.logo-vector-overlay {
+  position: absolute;
+  top: 48%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2.2s var(--ease-soft), transform 2.2s var(--ease-soft);
+  text-align: center;
+}
+
+.logo-vector-overlay.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Lotus Emblem */
+.logo-emblem-svg {
+  width: 68px;
+  height: 68px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6));
+}
+
+.logo-emblem-svg path {
+  fill: url(#goldGradientEmblem);
+}
+
+/* Brand Name "Heaven" */
+.logo-brand-text {
+  font-family: var(--font-serif-body);
+  font-size: 5.6rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  line-height: 1;
+  position: relative;
+  background: linear-gradient(135deg, #fffaf0 0%, #e8c76b 25%, #c59b27 60%, #fae6a2 80%, #997017 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 25px rgba(212, 175, 55, 0.5));
+}
+
+/* Flourish Underline with tick */
+.logo-flourish-svg {
+  width: 260px;
+  height: 48px;
+  margin-top: -6px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+}
+
+.logo-flourish-svg path {
+  stroke: url(#goldGradientEmblem);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* "jasmine" subtitle */
+.logo-jasmine-text {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 12px;
+  text-transform: lowercase;
+  color: #dfcaa5;
+  margin-top: 4px;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+}
+
+/* Shimmer Light Flare Beam Sweep */
+.shimmer-sweep {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0) 30%, 
+    rgba(255, 255, 255, 0.7) 50%, 
+    rgba(212, 175, 55, 0.8) 55%, 
+    rgba(255, 255, 255, 0) 70%, 
+    transparent 100%);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  z-index: 18;
+  opacity: 0;
+}
+
+.shimmer-sweep.active {
+  opacity: 1;
+  animation: sweepAnim 2.2s var(--ease-cinematic) forwards;
+}
+
+@keyframes sweepAnim {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* UI Controls for Intro */
+.intro-ui-controls {
+  position: absolute;
+  bottom: 2.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  z-index: 30;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease, transform 1.2s var(--ease-cinematic);
+}
+
+.intro-ui-controls.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-gold-light);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  z-index: 25;
+}
+
+.intro-ui-controls.visible ~ .scroll-indicator {
+  opacity: 0.85;
+}
+
+.scroll-indicator svg {
+  animation: bounceDown 2s infinite ease-in-out;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* Start Experience Overlay (Autoplay Policy Helper) */
+.start-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(6, 5, 4, 0.94);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.0s ease, visibility 1.0s ease;
+}
+
+.start-modal-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-content {
+  text-align: center;
+  max-width: 580px;
+  padding: 3rem;
+  border: 1px solid var(--color-border-gold);
+  border-radius: 12px;
+  background: radial-gradient(circle at center, rgba(30, 24, 17, 0.6) 0%, rgba(12, 10, 8, 0.9) 100%);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
+}
+
+.modal-lotus {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 1.2rem;
+  fill: var(--color-gold-light);
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+}
+
+.modal-title {
+  font-family: var(--font-serif-display);
+  font-size: 2.2rem;
+  letter-spacing: 6px;
+  margin-bottom: 0.8rem;
+  background: linear-gradient(135deg, #fff7e6 0%, #d4af37 60%, #997017 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modal-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-bottom: 2.2rem;
+}
+
+.btn-start-intro {
+  padding: 1rem 3rem;
+  font-size: 0.88rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: var(--font-serif-display);
+}
+
+/* ==========================================================================
+   SHOWCASE SECTION & PRODUCT STORY
+   ========================================================================== */
+
+#showcase-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 8rem 5rem 6rem;
+  background: radial-gradient(circle at 30% 30%, #17130e 0%, #0a0907 60%, #040303 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  display: flex;
+  align-items: center;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+/* Bottle 3D Tilt Stage */
+.bottle-stage {
+  position: relative;
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottle-card {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8), 0 0 50px rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--color-border-gold);
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+  background: #0d0a07;
+}
+
+.bottle-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s var(--ease-cinematic);
+}
+
+.bottle-card:hover img {
+  transform: scale(1.03);
+}
+
+.bottle-card-badge {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: rgba(10, 8, 6, 0.75);
+  border: 1px solid var(--color-border-gold);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+}
+
+.bottle-reflection {
+  position: absolute;
+  bottom: -40px;
+  left: 10%;
+  width: 80%;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+  filter: blur(15px);
+  pointer-events: none;
+}
+
+/* Product Info */
+.showcase-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.category-tag {
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-gold-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-tag::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--color-gold-primary);
+}
+
+.showcase-title {
+  font-family: var(--font-serif-display);
+  font-size: 3.6rem;
+  font-weight: 500;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #ffffff 0%, #f0d58a 40%, #c49926 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.showcase-subtitle {
+  font-family: var(--font-serif-body);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--color-gold-light);
+}
+
+.showcase-desc {
+  font-size: 0.96rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+/* Fragrance Specs Grid */
+.specs-pills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.spec-item {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  padding: 1.2rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.spec-item:hover {
+  border-color: var(--color-border-gold);
+  background: rgba(30, 24, 18, 0.8);
+  transform: translateY(-2px);
+}
+
+.spec-label {
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+
+.spec-val {
+  font-family: var(--font-serif-display);
+  font-size: 1.1rem;
+  color: var(--color-gold-light);
+}
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.price-tag {
+  font-family: var(--font-serif-display);
+  font-size: 2.2rem;
+  color: #fff;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.price-sub {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+}
+
+/* ==========================================================================
+   OLFACTIVE PYRAMID SECTION
+   ========================================================================== */
+
+#notes-section {
+  padding: 7rem 5rem;
+  background: #090807;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4.5rem;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-gold-primary);
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-family: var(--font-serif-display);
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.pyramid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pyramid-tier {
+  background: rgba(18, 15, 12, 0.6);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  padding: 2.2rem;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pyramid-tier::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-gold-primary);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.pyramid-tier:hover {
+  border-color: var(--color-border-gold);
+  background: rgba(28, 22, 17, 0.7);
+  transform: translateX(6px);
+}
+
+.pyramid-tier:hover::before {
+  opacity: 1;
+}
+
+.tier-header h4 {
+  font-family: var(--font-serif-display);
+  font-size: 1.5rem;
+  color: var(--color-gold-light);
+  margin-bottom: 4px;
+}
+
+.tier-timing {
+  font-size: 0.76rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold-dark);
+}
+
+.tier-notes-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.note-tag {
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: var(--color-text-main);
+  padding: 0.6rem 1.4rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.note-tag:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--color-gold-primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   CRAFTSMANSHIP & BOTTLE ARCHITECTURE
+   ========================================================================== */
+
+#craft-section {
+  padding: 7rem 5rem;
+  background: radial-gradient(circle at 70% 30%, #16120c 0%, #070605 80%);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.craft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.craft-card {
+  background: rgba(18, 15, 12, 0.5);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  padding: 2.8rem 2.2rem;
+  transition: all 0.4s ease;
+}
+
+.craft-card:hover {
+  border-color: var(--color-border-gold);
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.craft-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1.8rem;
+  fill: var(--color-gold-primary);
+}
+
+.craft-card h3 {
+  font-family: var(--font-serif-display);
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.9rem;
+}
+
+.craft-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+/* Footer */
+.luxury-footer {
+  padding: 5rem 4rem 3rem;
+  background: #040303;
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  text-align: center;
+}
+
+.footer-emblem {
+  margin-bottom: 1.5rem;
+}
+
+.footer-emblem svg {
+  width: 36px;
+  height: 36px;
+  fill: var(--color-gold-primary);
+}
+
+.footer-brand {
+  font-family: var(--font-serif-display);
+  font-size: 1.8rem;
+  letter-spacing: 5px;
+  color: var(--color-gold-light);
+  margin-bottom: 1.8rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  list-style: none;
+  margin-bottom: 2.5rem;
+}
+
+.footer-links a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-gold-light);
+}
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: #61584c;
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS & 4K RESOLUTION ENHANCEMENTS
+   ========================================================================== */
+
+/* 4K Displays (3840px+) */
+@media (min-width: 2560px) {
+  .logo-brand-text {
+    font-size: 7.5rem;
+  }
+  .logo-emblem-svg {
+    width: 90px;
+    height: 90px;
+  }
+  .logo-flourish-svg {
+    width: 350px;
+    height: 65px;
+  }
+  .logo-jasmine-text {
+    font-size: 1.5rem;
+    letter-spacing: 16px;
+  }
+  .showcase-title {
+    font-size: 5rem;
+  }
+}
+
+/* Tablets & Mobile */
+@media (max-width: 1024px) {
+  .luxury-nav {
+    padding: 0 2rem;
+  }
+  .nav-links {
+    display: none;
+  }
+  .showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .hand-container {
+    width: 85vw;
+  }
+  .logo-vector-overlay {
+    left: 35%;
+  }
+  .logo-brand-text {
+    font-size: 4rem;
+  }
+  .pyramid-tier {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .craft-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-vector-overlay {
+    left: 50%;
+    top: 40%;
+  }
+  .logo-brand-text {
+    font-size: 3.2rem;
+  }
+  .hand-container {
+    width: 100vw;
+    opacity: 0.8;
+  }
+  .intro-ui-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    bottom: 4rem;
+    width: 90%;
+  }
+  #showcase-section, #notes-section, #craft-section {
+    padding: 5rem 1.8rem;
+  }
+}
